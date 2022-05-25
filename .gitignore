@@ -1,3 +1,13 @@
 # dir
 trans_cache
 __pycache__
+build
+dist
+
+# .py
+setup.py
+_exec.py
+
+# .spec
+*.spec
+.DS_Store
