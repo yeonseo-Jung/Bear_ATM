@@ -1,2 +1,2 @@
 # Bear_ATM
-** Bear Robotics Coding Project **
+Bear Robotics Coding Project
