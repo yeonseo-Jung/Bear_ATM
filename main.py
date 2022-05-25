@@ -1,3 +1,5 @@
+import time
+
 try: 
     import pandas as pd
 except:
@@ -6,6 +8,7 @@ except:
     import pandas as pd
     
 from atm import Account
+
 
 def controller(card='', pin=''):
     while (len(card)!=6) | (card.isdigit()==False) & (len(pin)!=4) & (pin.isdigit()==False):
@@ -47,8 +50,11 @@ def controller(card='', pin=''):
             dollars = input("Enter the Amount to Deposit: ")
             
         ac.deposit(int(dollars))
+        balance = ac.transaction[-1][-1]
         print("\n\t===============================")
         print(f'\tSuccessful Deposit of $ {dollars}')
+        print("\t===============================")
+        print(f'\tBalance: $ {balance}')
         print("\t===============================")
         
     elif menu == '2':
@@ -62,14 +68,18 @@ def controller(card='', pin=''):
             print(f'\tBalance: $ {balance}')
             print("\tI can't withdraw more than my balance")
             print('\t=====================================')
-            dollars = input("Enter the Amount to Withdraw: ")
-            result, balance = ac.withdraw(int(dollars))
+            dollars = input("Enter the Amount to Withdraw (If you don't want to withdraw, click 'n'): ")
+            if dollars == "n" or dollars == "N":
+                break
+            else:
+                result, balance = ac.withdraw(int(dollars))
         
-        print("\n\t=====================================")
-        print(f'\tSuccessful withdrawal of $ {dollars}')
-        print("\t=====================================")
-        print(f'\tBalance: $ {balance}')
-        print("\t=====================================")
+        if result == 1:
+            print("\n\t=====================================")
+            print(f'\tSuccessful withdrawal of $ {dollars}')
+            print("\t=====================================")
+            print(f'\tBalance: $ {balance}')
+            print("\t=====================================")
         
     elif menu == '3':
         if len(ac.transaction) == 0:
@@ -112,3 +122,7 @@ if __name__ == '__main__':
         while comp not in ['n', 'N', 'y', 'Y']:
             comp = input("\tDo you want to do another banking business? (Enter the 'y' or 'n')")
             
+    print("\n\t========")
+    print("\tGood Bye")
+    print("\t========")
+    time.sleep(2.5)
